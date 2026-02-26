@@ -32,14 +32,14 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') in ('True', '1', 't')
 
 
-ALLOWED_HOSTS = [ ]
+ALLOWED_HOSTS = [  ]
 
 
 # Application definition
 
 PROJECT_APPS = [
     'eve.industry',
-    'eve.profiles',
+    'eve.accounts',
 ]
 
 INSTALLED_APPS = [

@@ -57,7 +57,7 @@ class CorporationsLpItemTypes(CreatedAtMixin):
     type_id = models.ForeignKey(to='Types', on_delete=models.CASCADE, db_column='type_id', related_name='lp_store_offers')
     corporation_id = models.ForeignKey(to='CorporationsWithLPStores', on_delete=models.CASCADE, db_column='corporation_id', related_name='lp_store_offers')
     ak_cost = models.IntegerField(blank=True, null=True)
-    isk_cost = models.IntegerField(blank=True, null=True)
+    isk_cost = models.BigIntegerField(blank=True, null=True)
     lp_cost = models.IntegerField(blank=True, null=True)
     offer_id = models.IntegerField(blank=True, null=True)
     quantity = models.IntegerField(blank=True, null=True)

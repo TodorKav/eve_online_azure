@@ -1,3 +1,4 @@
+{% load price_pro_lp %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +9,17 @@
     <p>Hello World</p>
     <table>
         <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Name</th>
-            <th>Age</th>
+            <th>Type ID</th>
+            <th>Item</th>
+            <th>Corporation</th>
+            <th>LP</th>
+            <th>ISK</th>
+            <th>Required Items</th>
+            <th>Other Cost</th>
+            <th>Item Quantity</th>
+            <th>Item Price</th>
+            <th>ISK / LP</th>
+
         </tr>
     {% for i in object_list %}
         <tr>
@@ -27,6 +31,8 @@
             <td>{{ i.required }}</td>
             <td>{{ i.material_cost }}</td>
             <td>{{ i.quantity }}</td>
+            <td>{{ i.type_id.market_prices.adjusted_price|floatformat:2 }}</td>
+            <td>{{ i|price_pro_lp|floatformat:2 }}</td>
         </tr>
     {% endfor %}
     </table>

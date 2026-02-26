@@ -16,7 +16,6 @@ TIMEOUT = (15, 30)
 
 session = requests.Session()
 corporation_id_list = CorporationsWithLPStores.objects.values_list('corporation_id', flat=True)
-corporation_id_list = corporation_id_list[:10]
 
 
 # to = []
