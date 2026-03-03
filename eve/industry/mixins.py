@@ -67,4 +67,19 @@ class RequiredItemsMixin:
                 setattr(obj, 'required', ', '.join(content_list))
                 setattr(obj, 'material_cost', material_cost)
 
+
+            # price pro LP calculation
+            isk_income = (obj.type_id.market_prices.adjusted_price
+                          if obj.type_id and hasattr(obj.type_id, 'market_prices')
+                          else 0)
+            blueprint_cost = obj.isk_cost or 0
+            material_cost = getattr(obj, 'material_cost', 0) or 0
+            lp = obj.lp_cost or 1
+            if lp == 0:
+                lp = 1
+
+            obj.price_pro_lp = (isk_income * obj.quantity - blueprint_cost - material_cost) / lp
+            ############################
+
+
         return queryset

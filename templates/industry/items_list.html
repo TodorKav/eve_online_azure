@@ -1,12 +1,29 @@
-{% load price_pro_lp %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <table>
+{% extends 'base.html' %}
+{% load int_separator %}
+{% load humanize %}
+
+
+{% block content %}
+    <form method="get" class="eve-search-form">
+      <div class="eve-search-wrapper">
+        {{ form.q }}
+      </div>
+      <button type="submit"><i class="fas fa-search"></i> Scan</button>
+    </form>
+
+    <table class="eve-table">
+        <colgroup>
+            <col style="width: 4%;">   <!-- Type ID -->
+            <col style="width: 13%;">  <!-- Item -->
+            <col style="width: 9%;">  <!-- Corporation -->
+            <col style="width: 5%;">   <!-- LP -->
+            <col style="width: 7%;"> <!-- ISK -->
+            <col style="width: 30%;">  <!-- Required Items-->
+            <col style="width: 10%;">   <!-- Other Cost -->
+            <col style="width: 4%;">  <!-- Item Quantity -->
+            <col style="width: 10%;">  <!-- Item Price -->
+            <col style="width: 10%;">   <!-- ISK / LP -->
+        </colgroup>
         <tr>
             <th>Type ID</th>
             <th>Item</th>
@@ -25,15 +42,39 @@
             <td>{{ i.type_id_id }}</td>
             <td>{{ i.type_id.name }}</td>
             <td>{{ i.corporation_id.name }}</td>
-            <td>{{ i.lp_cost }}</td>
-            <td>{{ i.isk_cost }}</td>
+            <td>{{ i.lp_cost|intcomma|int_separator }}</td>
+            <td>{{ i.isk_cost|intcomma|int_separator }}</td>
             <td>{{ i.required }}</td>
-            <td>{{ i.material_cost|floatformat:2 }}</td>
+            <td>{{ i.material_cost|floatformat:2|intcomma|int_separator }}</td>
             <td>{{ i.quantity }}</td>
-            <td>{{ i.type_id.market_prices.adjusted_price|floatformat:2 }}</td>
-            <td>{{ i|price_pro_lp|floatformat:2 }}</td>
+            <td>{{ i.type_id.market_prices.adjusted_price|floatformat:2|intcomma|int_separator }}</td>
+            <td>{{ i.price_pro_lp|floatformat:2|intcomma|int_separator }}</td>
         </tr>
     {% endfor %}
     </table>
-</body>
-</html>
+
+    {% if is_paginated %}
+    <div class="pagination" >
+        {% with request.GET.q as q %}
+
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if q %}&q={{ q }}{% endif %}">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">Previous</a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if q %}&q={{ q }}{% endif %}">Last &raquo;</a>
+        {% endif %}
+
+        {% endwith %}
+    </div>
+    {% endif %}
+
+
+
+{% endblock %}

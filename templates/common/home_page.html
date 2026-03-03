@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Default hero content -->
+    <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <div class="mb-4">
+        <span class="hero-badge">EVE Online // LP Store Hub</span>
+        <h1 class="hero-title">Welcome to the<br><span>LP Store Hub</span></h1>
+        <p class="hero-subtitle">Turn your Loyalty Points into real value.</p>
+        <p class="hero-desc">
+          This platform helps you explore, compare, and optimize everything available in EVE Online LP stores —
+          across factions, corporations, and regions. Whether you're a mission runner, faction warfare pilot,
+          or industrial optimizer, this tool gives you a clear overview of what your LP is truly worth.
+        </p>
+      </div>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <div class="eve-card h-100">
+            <h5><i class="bi bi-grid-3x3-gap me-2"></i>What you can do here</h5>
+            <ul class="feature-list">
+              <li><i class="bi bi-chevron-right"></i> Browse all LP-store items in one unified view</li>
+              <li><i class="bi bi-chevron-right"></i> Compare ISK/LP value and profitability</li>
+              <li><i class="bi bi-chevron-right"></i> Find the best conversions for your playstyle</li>
+              <li><i class="bi bi-chevron-right"></i> Track market-aware value for smarter decisions</li>
+              <li><i class="bi bi-chevron-right"></i> Customize results based on your goals and preferences</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="eve-card h-100">
+            <h5><i class="bi bi-bar-chart-line me-2"></i>No spreadsheets. No guesswork.</h5>
+            <p class="hero-desc mb-0" style="font-size: 0.75rem;">
+              Just clean data and smart tools to help you maximize every Loyalty Point you earn.
+              Built for capsuleers who value efficiency as much as destruction.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="eve-card">
+        <h5><i class="bi bi-rocket-takeoff me-2"></i>Start exploring</h5>
+        <ul class="feature-list mb-3">
+          <li><i class="bi bi-diamond-fill" style="color:var(--accent)"></i> View all LP-store items and their current market-aware ISK value</li>
+          <li><i class="bi bi-diamond-fill" style="color:var(--accent)"></i> Configure your personal preferences for a tailored experience</li>
+        </ul>
+        <div class="d-flex flex-wrap gap-3 pt-1">
+          <a href="/lp-store/" class="eve-btn">
+            <i class="bi bi-table"></i>
+            View LP Store Items
+          </a>
+          <a href="/preferences/" class="eve-btn-ghost">
+            <i class="bi bi-sliders"></i>
+            Configure Preferences
+          </a>
+        </div>
+      </div>
+
+      <div class="eve-divider"></div>
+      <p style="font-size: 0.72rem; color: var(--muted); text-align:center; letter-spacing: 0.06em;">
+        Make every mission count. Make every LP worth more.
+      </p>
+
+    </div>
+    </div>
+{% endblock %}

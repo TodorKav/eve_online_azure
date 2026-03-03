@@ -1,5 +1,8 @@
-from django.views.generic import ListView
+from django.db.models import Q
+from django.views.generic import ListView, TemplateView
+from django.views.generic.edit import BaseFormView
 
+from eve.industry.forms import SearchForm
 from eve.industry.mixins import RequiredItemsMixin
 from eve.industry.models import CorporationsLpItemTypes
 
@@ -7,14 +10,25 @@ from eve.industry.models import CorporationsLpItemTypes
 # Create your views here.
 
 
-class ItemList(ListView):
+class ItemList(ListView, BaseFormView):
     template_name = 'industry/items_list.html'
     model = CorporationsLpItemTypes
-    paginate_by = 100
+    form_class = SearchForm
+    paginate_by = 50
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.select_related('type_id', 'type_id__market_prices', 'corporation_id',)
-        queryset = RequiredItemsMixin.display(queryset)
-        return queryset
+        if not hasattr(self, '_cached_queryset'):
+            queryset = super().get_queryset()
+            queryset = queryset.select_related('type_id', 'type_id__market_prices', 'corporation_id',)
+            q = self.request.GET.get('q')
+            if q:
+                queryset = queryset.filter(Q(type_id__name__icontains=q) | Q(corporation_id__name=q))
+            queryset = RequiredItemsMixin.display(queryset)
 
+            self._cached_queryset = sorted(queryset, key=lambda x: x.price_pro_lp, reverse=True)
+        return self._cached_queryset
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['q'] = self.request.GET.get('q')
+        return initial
