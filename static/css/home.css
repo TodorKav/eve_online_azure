@@ -625,3 +625,36 @@ footer {
 .eve-table tr:hover td {
   background: var(--accent-dim);
 }
+
+/* Navbar button (logout) — matches nav-links anchor style */
+.nav-btn {
+  background: none;
+  border: 1px solid transparent;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.45rem 0.85rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.nav-btn:hover {
+  color: var(--accent);
+  border-color: var(--border);
+  background: var(--accent-dim);
+}
+
+/* Navbar username indicator */
+.nav-user {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 0.45rem 0.85rem;
+  /*border: 1px solid var(--border);*/
+  border-radius: 3px;
+  /*background: var(--accent-dim);*/
+}

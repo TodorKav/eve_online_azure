@@ -2,93 +2,51 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{% block title %}EVE LP Store Hub{% endblock %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    {% block extra_head %}{% endblock %}
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>{% block title %}EVE LP Store Hub{% endblock %}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/home.css' %}">
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
 
-  <!-- Corner decorations -->
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
+        <!-- Corner decorations -->
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
 
-  <!-- Glow orb -->
-  <div class="orb"></div>
+        <!-- Glow orb -->
+        <div class="orb"></div>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="eve-navbar">
-    <a href="/" class="brand">
-      <div class="brand-dot"></div>
-      EVE LP
-    </a>
+        <!-- ===== NAVBAR ===== -->
+        {% include 'navbar.html' %}
 
-    <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">
-      <i class="bi bi-list"></i>
-    </button>
+        <!-- ===== MAIN ===== -->
+        <main>
+            <div class="container-xl">
 
-    <ul class="nav-links">
-      <li><a href="/" class="active">Home</a></li>
-      <li><a href="{% url 'industry:itemlist' %}">LP Store</a></li>
-      <li><a href="/compare/">Compare</a></li>
-      <li><a href="/preferences/">Preferences</a></li>
-    </ul>
-  </nav>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="eve-alert {{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
 
-  <!-- ===== MAIN ===== -->
-  <main>
-    <div class="container-xl">
+                {% block content %}
 
-      {% if messages %}
-        {% for message in messages %}
-          <div class="eve-alert {{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
+                {% endblock %}
+            </div>
+        </main>
 
-      {% block content %}
+        <!-- ===== FOOTER ===== -->
+        {% include 'footer.html' %}
 
-      {% endblock %}
-    </div>
-  </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-inner">
-      <a href="/" class="footer-brand">EVE LP</a>
-
-      <ul class="footer-links">
-        <li><a href="{% url 'industry:itemlist' %}">LP Store</a></li>
-        <li><a href="/compare/">Compare</a></li>
-        <li><a href="/preferences/">Preferences</a></li>
-        <li><a href="/about/">About</a></li>
-      </ul>
-
-      <span style="font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--muted);">
-        Not affiliated with CCP Games
-      </span>
-    </div>
-
-    <div class="status-bar">
-      <div class="status-item">
-        <div class="status-dot"></div>
-        Online
-      </div>
-      <div class="status-item">EVE LP Store Hub</div>
-      <div class="status-item" style="margin-left:auto;">
-        {% now "Y" %} &nbsp;// No Spreadsheets Required
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  {% block extra_js %}{% endblock %}
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        {% block extra_js %}{% endblock %}
+    </body>
 </html>

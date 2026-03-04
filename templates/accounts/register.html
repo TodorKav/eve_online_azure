@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="max-width: 420px; margin: 4rem auto;">
+
+        <div class="eve-card">
+            <h5>// Create Account</h5>
+
+            <form method="POST" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {% csrf_token %}
+
+
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label for="{{ form.username.id_for_label }}">Username</label>
+                    {{ form.username }}
+                    {% for error in form.username.errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    {% for error in form.password1.errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                    {{ form.password2 }}
+                    {% for error in form.password2.errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="eve-btn" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

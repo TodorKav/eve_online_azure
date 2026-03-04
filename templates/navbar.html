@@ -1,0 +1,32 @@
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="eve-navbar">
+      <a href="/" class="brand">
+          <div class="brand-dot"></div>
+          EVE LP
+      </a>
+
+      <button class="nav-toggle" onclick="this.nextElementSibling.classList.toggle('open')">
+          <i class="bi bi-list"></i>
+      </button>
+
+      <ul class="nav-links">
+          <li><a href="/" class="active">Home</a></li>
+          <li><a href="{% url 'industry:itemlist' %}">LP Store</a></li>
+          <li><a href="#">Preferences</a></li>
+          {% if user.is_authenticated %}
+              <li><span class="nav-user"><i class="fas fa-user"></i> {{ user.username }}</span></li>
+              <li>
+                  <form action="{% url 'accounts:logout' %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="nav-btn">
+                          <i class="fas fa-sign-out-alt"></i> Logout
+                      </button>
+                  </form>
+              </li>
+          {% else %}
+              <li><a href="{% url 'accounts:login' %}">Login</a></li>
+              <li><a href="{% url 'accounts:register' %}" class="eve-btn" style="padding: 0.45rem 0.85rem; font-size: 0.68rem;">Register</a></li>
+          {% endif %}
+      </ul>
+  </nav>
