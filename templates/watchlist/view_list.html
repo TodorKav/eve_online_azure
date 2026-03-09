@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load eve_images %}
+
+{% block content %}
+    {% for watchlist in object_list %}
+        <h2>{{ watchlist.name }}</h2>
+        {% for entry in watchlist.items.all %}
+            <img src="{{ entry.item.type_id|eve_icon }}">
+            <p>{{ entry.item.name }}</p>
+            <p>{{ entry.item.description|truncatewords:20 }}</p>
+        {% empty %}
+            <p>No items</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

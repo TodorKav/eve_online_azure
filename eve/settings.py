@@ -39,7 +39,9 @@ ALLOWED_HOSTS = [ '*' ]
 
 PROJECT_APPS = [
     'eve.industry',
+    'eve.common',
     'eve.accounts',
+    'eve.watchlist',
 ]
 
 INSTALLED_APPS = [
