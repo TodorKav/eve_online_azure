@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView
 
 from eve.accounts.forms import CustomUserCreationForm, CustomUserChangeForm
 

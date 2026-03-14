@@ -11,18 +11,21 @@
       <button type="submit"><i class="fas fa-search"></i> Scan</button>
     </form>
 
+    <form method="post" action="{% url 'watchlist:watchlist-items-save' %}">
+    {% csrf_token %}
     <table class="eve-table">
         <colgroup>
-            <col style="width: 4%;">   <!-- Type ID -->
-            <col style="width: 13%;">  <!-- Item -->
-            <col style="width: 9%;">  <!-- Corporation -->
+            <col style="width: 3.5%;">   <!-- Type ID -->
+            <col style="width: 12.5%;">  <!-- Item -->
+            <col style="width: 8%;">  <!-- Corporation -->
             <col style="width: 5%;">   <!-- LP -->
             <col style="width: 7%;"> <!-- ISK -->
             <col style="width: 30%;">  <!-- Required Items-->
             <col style="width: 10%;">   <!-- Other Cost -->
-            <col style="width: 4%;">  <!-- Item Quantity -->
+            <col style="width: 3.5%;">  <!-- Item Quantity -->
             <col style="width: 10%;">  <!-- Item Price -->
-            <col style="width: 10%;">   <!-- ISK / LP -->
+            <col style="width: 9.5%;">   <!-- ISK / LP -->
+            <col style="width: 1%;">   <!-- Checkbox -->
         </colgroup>
         <tr>
             <th>Type ID</th>
@@ -35,6 +38,7 @@
             <th>Item Quantity</th>
             <th>Item Price</th>
             <th>ISK / LP</th>
+            <th>Add</th>
 
         </tr>
     {% for i in object_list %}
@@ -49,32 +53,46 @@
             <td>{{ i.quantity }}</td>
             <td>{{ i.type_id.market_prices.adjusted_price|floatformat:2|intcomma|int_separator }}</td>
             <td>{{ i.price_pro_lp|floatformat:2|intcomma|int_separator }}</td>
+            <td><input type="checkbox" name="selected_items" value='{"type_id":{{ i.type_id_id }}, "corporation_id":{{ i.corporation_id_id }}}'></td>
         </tr>
     {% endfor %}
     </table>
 
     {% if is_paginated %}
-    <div class="pagination" >
-        {% with request.GET.q as q %}
+    <div class="eve-pagination-row">
+        <div class="pagination">
+            {% with request.GET.q as q %}
 
-        {% if page_obj.has_previous %}
-            <a href="?page=1{% if q %}&q={{ q }}{% endif %}">&laquo; First</a>
-            <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">Previous</a>
-        {% endif %}
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if q %}&q={{ q }}{% endif %}">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">Previous</a>
+            {% endif %}
 
-        <span class="page-info">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-        </span>
+            <span class="page-info">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
 
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}{% if q %}&q={{ q }}{% endif %}">Last &raquo;</a>
-        {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if q %}&q={{ q }}{% endif %}">Last &raquo;</a>
+            {% endif %}
 
-        {% endwith %}
+            {% endwith %}
+        </div>
+
+        <button type="submit" class="eve-btn">
+            <i class="fas fa-plus"></i> Add to Watchlist
+        </button>
     </div>
+    {% else %}
+        <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+            <button type="submit" class="eve-btn">
+                <i class="fas fa-plus"></i> Add to Watchlist
+            </button>
+        </div>
     {% endif %}
 
+    </form>
 
 
 {% endblock %}

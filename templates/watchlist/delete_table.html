@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 520px; margin: 4rem auto;">
+
+    <div class="eve-card">
+        <h5>// Delete Watchlist</h5>
+
+        <p style="font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;">
+            You are about to delete the following watchlist:
+        </p>
+
+        <span class="eve-field">
+            <i class="fas fa-table" style="color: var(--error); margin-right: 0.5rem;"></i>
+            {{ object.name }}
+        </span>
+
+        <div class="eve-divider"></div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="eve-btn-row">
+                <button type="submit" class="eve-btn" style="border-color: var(--error); color: var(--error);">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+                <a href="{% url 'watchlist:watchlist' %}" class="eve-btn-ghost">
+                    <i class="fas fa-arrow-left"></i> Cancel
+                </a>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}

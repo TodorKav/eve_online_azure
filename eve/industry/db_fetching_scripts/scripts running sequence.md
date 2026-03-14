@@ -7,6 +7,7 @@
 4. types.py
 5. market_prices.py
 6. corporations_with_lp_stores.py
+7. Corporations_lp_item_types
 
 ---
 ### Recommended updates for each model:

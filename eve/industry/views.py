@@ -19,10 +19,13 @@ class ItemList(ListView, BaseFormView):
     def get_queryset(self):
         if not hasattr(self, '_cached_queryset'):
             queryset = super().get_queryset()
-            queryset = queryset.select_related('type_id', 'type_id__market_prices', 'corporation_id',)
+
             q = self.request.GET.get('q')
             if q:
                 queryset = queryset.filter(Q(type_id__name__icontains=q) | Q(corporation_id__name=q))
+
+            queryset = queryset.select_related('type_id', 'type_id__market_prices', 'corporation_id',)
+
             queryset = RequiredItemsMixin.display(queryset)
 
             self._cached_queryset = sorted(queryset, key=lambda x: x.price_pro_lp, reverse=True)

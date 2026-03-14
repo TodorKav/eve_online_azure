@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('eve.common.urls')),
     path('industry/', include('eve.industry.urls')),
     path('accounts/', include('eve.accounts.urls')),
+    path('watchlist/', include('eve.watchlist.urls')),
 ]

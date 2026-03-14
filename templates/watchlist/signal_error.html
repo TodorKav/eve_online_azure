@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3>This error appears because your account was created directly in the database
+        or via <code>createsuperuser</code>, so the following signal never triggered:
+    </h3>
+
+    <pre>
+@receiver(post_save, sender=UserModel)
+def create_watchlist(sender, instance, created, **kwargs):
+    if created:
+        Watchlist.objects.create(user=instance)
+    </pre>
+
+    <h3>To use this functionality, please create your account through the
+        <strong>Register</strong> button instead.
+    </h3>
+
+{% endblock %}
