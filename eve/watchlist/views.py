@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from eve.watchlist.forms import WatchlistForm, WatchlistEditForm, WatchlistDeleteForm
@@ -89,3 +90,30 @@ class DeleteTableView(DeleteView):
             self.object.delete()
         return HttpResponseRedirect(success_url)
 
+class MoveItemsView(View):
+
+    def post(self, request, *args, **kwargs):
+
+        items = request.POST.getlist('target_watchlist')
+        item_list = [json.loads(item) for item in items]
+
+        move_items_id = list(map(int, request.POST.getlist('move')))
+
+        if not move_items_id:
+            return redirect('watchlist:watchlist')
+
+        for item in item_list:
+            if item.get('watchlist_item_entry') in move_items_id:
+                if item.get('current_watchlist') != item.get('target_watchlist'):
+                    WatchlistItem.objects.filter(pk=item.get('watchlist_item_entry')).delete()
+                    WatchlistItem.objects.get_or_create(
+                        watchlist_id=item.get('target_watchlist'),
+                        item_id=item.get('type_id'),
+                        corporation_id=item.get('corporation_id'),
+                    )
+
+        return redirect('watchlist:watchlist')
+
+
+# class DeleteItemView(DeleteView):
+#     model = WatchlistItem

@@ -1,10 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Edit</button>
-    </form>
+<div style="max-width: 520px; margin: 4rem auto;">
 
+    <div class="eve-card">
+        <h5>// Edit Watchlist</h5>
+
+        <form method="POST" style="display: flex; flex-direction: column; gap: 1.25rem;">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="eve-alert error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="eve-form-group">
+                <label for="{{ form.name.id_for_label }}">Watchlist Name</label>
+                {{ form.name }}
+                {% for error in form.name.errors %}
+                    <div class="eve-alert error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="eve-divider"></div>
+
+            <div class="eve-btn-row">
+                <button type="submit" class="eve-btn">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <a href="{% url 'watchlist:watchlist' %}" class="eve-btn-ghost">
+                    <i class="fas fa-arrow-left"></i> Back to Watchlist
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+</div>
 {% endblock %}

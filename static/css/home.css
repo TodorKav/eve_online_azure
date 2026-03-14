@@ -695,3 +695,89 @@ footer {
   justify-content: space-between;
   margin-top: 12px;
 }
+
+/* Watchlist section header */
+.eve-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.eve-section-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Icon button — for trash/edit SVG actions */
+.eve-icon-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 3px;
+  transition: all 0.25s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.eve-icon-btn:hover {
+  color: var(--accent);
+  border-color: var(--border);
+  background: var(--accent-dim);
+}
+
+.eve-icon-btn.danger:hover {
+  color: var(--error);
+  border-color: var(--error);
+  background: rgba(255, 64, 96, 0.1);
+}
+
+/* Select dropdown */
+.eve-select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.65rem;
+  outline: none;
+  transition: border-color 0.25s;
+  cursor: pointer;
+}
+
+.eve-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* Checkbox */
+.eve-checkbox {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.eve-checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.eve-checkbox:focus {
+  box-shadow: 0 0 0 3px var(--accent-dim);
+  outline: none;
+}
