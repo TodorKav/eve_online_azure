@@ -8,6 +8,7 @@ from eve.industry.mixins import CreatedAtMixin
 class Watchlist(models.Model):
     user = models.ForeignKey(to='accounts.CustomUser', on_delete=models.CASCADE, related_name="watchlist")
     name = models.CharField(max_length=200, default="Unsorted")
+    description = models.CharField(max_length=120, blank=True, default='')
 
     class Meta:
         unique_together = ("user", "name")

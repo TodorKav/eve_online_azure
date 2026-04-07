@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from eve.watchlist.forms import WatchlistForm, WatchlistEditForm, WatchlistDeleteForm
+from eve.watchlist.forms import WatchlistForm, WatchlistEditForm, WatchlistDeleteForm, \
+    WatchlistDescriptionEditForm, WatchlistDescriptionDeleteForm
 from eve.watchlist.mixins import WatchlistNameValidationMixin
 from eve.watchlist.models import Watchlist, WatchlistItem
 
@@ -115,3 +116,29 @@ class MoveItemsView(View):
         return redirect('watchlist:watchlist')
 
 
+class WatchlistDescriptionEditView(LoginRequiredMixin, UpdateView):
+    template_name = 'watchlist/edit_description.html'
+    success_url = reverse_lazy('watchlist:watchlist')
+    model = Watchlist
+    form_class = WatchlistDescriptionEditForm
+
+    def get_queryset(self):
+        return Watchlist.objects.filter(user=self.request.user)
+
+class WatchlistDescriptionDeliteView(LoginRequiredMixin, UpdateView):
+    template_name = 'watchlist/delete_description.html'
+    success_url = reverse_lazy('watchlist:watchlist')
+    model = Watchlist
+    form_class = WatchlistDescriptionDeleteForm
+
+    def get_queryset(self):
+        return Watchlist.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = WatchlistDescriptionDeleteForm(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        form.instance.description = ''
+        return super().form_valid(form)

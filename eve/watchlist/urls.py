@@ -12,6 +12,8 @@ urlpatterns = [
     path('<int:pk>/', include([
         path('edit_table/', views.EditTableView.as_view(), name='edit-table'),
         path('delete_table/', views.DeleteTableView.as_view(), name='delete-table'),
+        path('watchlist_edit_description/', views.WatchlistDescriptionEditView.as_view(), name='edit-description'),
+        path('watchlist_delete_description/', views.WatchlistDescriptionDeliteView.as_view(), name='delete-description'),
     ])),
     path('delete_items/<int:pk>/', DeleteView.as_view(
         model=views.WatchlistItem,

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="max-width: 520px; margin: 4rem auto;">
+
+        <div class="eve-card">
+            <h5>// Delete Description</h5>
+
+        <p style="font-size: 0.78rem; color: var(--muted); margin-bottom: 0.5rem;">
+            You are about to delete the description for this table!
+        </p>
+
+            <form method="POST" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+                {{ form.description }}
+                {% for error in form.description.errors %}
+                    <div class="eve-alert error">{{ error }}</div>
+                {% endfor %}
+
+                <div class="eve-btn-row">
+                    <button type="submit" class="eve-btn">
+                        <i class="fas fa-save"></i> Delete
+                    </button>
+                    <a href="{% url 'watchlist:watchlist' %}" class="eve-btn-ghost">
+                        <i class="fas fa-arrow-left"></i> Back to Watchlist
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
