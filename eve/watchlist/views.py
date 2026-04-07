@@ -115,5 +115,3 @@ class MoveItemsView(View):
         return redirect('watchlist:watchlist')
 
 
-# class DeleteItemView(DeleteView):
-#     model = WatchlistItem
