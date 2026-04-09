@@ -48,7 +48,7 @@ type_data = {
     for t in Types.objects.filter(type_id__in=all_type_ids).select_related('market_prices')
 }
 
-# Compute material_cost per LP item and bulk update
+# Compute _cost_cost per LP item and bulk update
 to_update = []
 for obj in tqdm(all_lp_items, desc="Computing material costs"):
     material_cost = 0.0
