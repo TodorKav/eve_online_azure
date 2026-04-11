@@ -9,6 +9,11 @@
             </form>
         {% endfor %}
 
+        <form method="get"
+          action="{% url 'cost_calculation:view' watchlist.id %}"
+          id="apprise-form-{{ watchlist.pk }}">
+        </form>
+
         <form method="post" action="{% url 'watchlist:move-items' %}">
             {% csrf_token %}
 
@@ -41,25 +46,36 @@
 
                 <table class="eve-table">
                     <colgroup>
-                        <col style="width: 5%;">
-                        <col style="width: 13%;">
+                        <col style="width: 4%;">
+                        <col style="width: 12%;">
                         <col style="width: 10%;">
-                        <col style="width: 57%;">
-                        <col style="width: 15%;">
+                        <col style="width: 54%;">
+                        <col style="width: 7%;">
+                        <col style="width: 13%;">
                     </colgroup>
                     <tr>
                         <th></th>
                         <th>Item</th>
                         <th>Corporation</th>
                         <th>Description</th>
+                        <th>Num Items</th>
                         <th>Actions</th>
                     </tr>
                     {% for entry in watchlist.items.all %}
-                        <tr>
-                            <td><img src="{{ entry.item.type_id|eve_icon }}" style="width: 32px; height: 32px; border-radius: 3px;"></td>
-                            <td>{{ entry.item.name }}</td>
-                            <td>{{ entry.corporation.name }}</td>
-                            <td style="color: var(--muted); font-size: 0.7rem;">{{ entry.item.description|truncatewords:30 }}</td>
+                    <tr>
+                        <td><img src="{{ entry.item.type_id|eve_icon }}" style="width: 32px; height: 32px; border-radius: 3px;"></td>
+                        <td>{{ entry.item.name }}</td>
+                        <td>{{ entry.corporation.name }}</td>
+                        <td style="color: var(--muted); font-size: 0.7rem;">{{ entry.item.description|truncatewords:30 }}</td>
+                        <td>
+                            <input type="number"
+                                   name="qty_{{ entry.item.type_id }}_{{ entry.corporation.corporation_id }}"
+                                   value="1"
+                                   min="1"
+                                   form="apprise-form-{{ watchlist.pk }}"
+                                   class="eve-select"
+                                   style="width: 60px; text-align: center; padding: 0.2rem 0.4rem;">
+                        </td>
                             <td>
                                 <div style="display: flex; align-items: center; gap: 0.5rem;">
 
@@ -93,9 +109,11 @@
 
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
 
-                    <a href="{% url 'cost_calculation:test' watchlist.id %}" class="eve-btn">
+                    <button type="submit"
+                            form="apprise-form-{{ watchlist.pk }}"
+                            class="eve-btn">
                         <i class="bi bi-calculator"></i> Apprise Items
-                    </a>
+                    </button>
 
                     <button type="submit" class="eve-btn">
                         <i class="bi bi-arrow-left-right"></i> Move Selected

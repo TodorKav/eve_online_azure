@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
+{% load humanize %}
+{% load eve_images %}
+{% load int_separator %}
 
 {% block content %}
-    {% for item in object.items.all %}
-        <p>{{ item.corporation.corporation_id }}</p>
-        <p>{{ item.item.type_id }}</p>
-    {% endfor %}
+
+    <table class="eve-table">
+        <colgroup>
+            <col style="width: 5%;">
+            <col style="width: 30%;">
+            <col style="width: 10%;">
+            <col style="width: 10%;">
+            <col style="width: 10%;">
+            <col style="width: 10%;">
+            <col style="width: 15%;">
+        </colgroup>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Item</th>
+                <th>Item Price</th>
+                <th>Item Quantity</th>
+                <th>Cost</th>
+                <th>Packaged Volume</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in object_list %}
+                <tr>
+                    <td><img src="{{ i.type_id|eve_icon }}" style="width: 32px; height: 32px; border-radius: 3px;"></td>
+                    <th>{{ i.name }}</th>
+                    <th>{{ i.market_prices.adjusted_price|floatformat:2|intcomma|int_separator }}</th>
+                    <td>{{ i.required_qty }}</td>
+                    <td>{{ i.total_multiplied|floatformat:2|intcomma|int_separator }}</td>
+                    <td>{{ i.packaged_volume|floatformat:2|intcomma|int_separator }}</td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="text-end fw-bold">Total Cost:</td>
+                <td>{{ object_list.total_price|floatformat:2|intcomma|int_separator }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
 {% endblock %}
