@@ -52,7 +52,7 @@ def add_items(request):
     return redirect('watchlist:watchlist')
 
 
-class AddTableView(WatchlistNameValidationMixin, CreateView):
+class AddTableView(LoginRequiredMixin, WatchlistNameValidationMixin, CreateView):
     template_name = 'watchlist/add_table.html'
     success_url = reverse_lazy('watchlist:watchlist')
     model = Watchlist

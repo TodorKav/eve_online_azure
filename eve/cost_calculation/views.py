@@ -14,7 +14,6 @@ class CostCalculation(LoginRequiredMixin, ListView):
     model = Watchlist
 
     def get_queryset(self):
-        global obj
         get_result = self.request.GET
         result_list = []
 
