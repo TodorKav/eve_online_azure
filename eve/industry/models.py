@@ -21,6 +21,7 @@ class MarketGroups(CreatedAtMixin):
     name = models.CharField(max_length=200)
     description = models.TextField()
 
+
 class Types(CreatedAtDateTimeMixin, PublishedMixin):
     type_id = models.IntegerField(primary_key=True)
     group_id = models.ForeignKey(to=Groups, on_delete=models.CASCADE, related_name='types', null=True, blank=True, db_column='group_id')

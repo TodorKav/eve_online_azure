@@ -3,8 +3,10 @@ from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
+from rest_framework.generics import CreateAPIView
 
 from eve.accounts.forms import CustomUserCreationForm, CustomUserChangeForm
+from eve.accounts.serializers import UserCreateApiSerializer
 
 # Create your views here.
 UserModel = get_user_model()
@@ -37,3 +39,6 @@ class UserEditView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
 class ProfileDetailView(LoginRequiredMixin, TemplateView,):
     template_name = 'accounts/profile_detail.html'
 
+class UserCreateApiView(CreateAPIView):
+    queryset = UserModel.objects.all()
+    serializer_class = UserCreateApiSerializer
