@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('eve.accounts.urls')),
     path('watchlist/', include('eve.watchlist.urls')),
     path('cost_calculation/', include('eve.cost_calculation.urls')),
+    path('eve_accounts/', include('eve.eve_accounts.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),

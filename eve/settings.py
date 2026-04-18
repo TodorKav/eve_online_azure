@@ -44,6 +44,7 @@ PROJECT_APPS = [
     'eve.accounts',
     'eve.watchlist',
     'eve.cost_calculation',
+    'eve.eve_accounts',
 ]
 
 INSTALLED_APPS = [

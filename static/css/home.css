@@ -781,3 +781,38 @@ footer {
   box-shadow: 0 0 0 3px var(--accent-dim);
   outline: none;
 }
+
+/* Token cell — truncates long JWT strings */
+.token-cell {
+    font-size: 0.65rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 0; /* needed for ellipsis in table-layout: fixed */
+}
+
+/* Info box — used on accounts and other info pages */
+.eve-info-box {
+    background: var(--accent-dim);
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    border-radius: 4px;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--text);
+    line-height: 1.8;
+}
+
+.eve-info-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.45rem 0 0;
+}
+
+.eve-info-box ul li::before {
+    content: '//';
+    color: var(--accent);
+    margin-right: 0.5rem;
+    font-size: 0.65rem;
+}

@@ -17,6 +17,7 @@
           {% if user.is_authenticated %}
               <li>
                   <span class="nav-user"><i class="fas fa-user"></i>
+                      <li><a href="{% url 'eve_accounts:view_list' %}">Eve Accounts</a></li>
                   <a href="{% url 'accounts:profile_detail' %}">{{ user.username }}</a>
                 </span>
               </li>

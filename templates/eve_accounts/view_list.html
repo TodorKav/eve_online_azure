@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="eve-card">
+    <div class="eve-section-header">
+        <h2>// Character Registry</h2>
+        <span class="eve-badge">EVE SSO</span>
+    </div>
+
+    <div class="eve-info-box">
+        All connected EVE Online accounts are listed below. From this panel you can:
+        <ul>
+            <li>View your linked characters and their IDs</li>
+            <li>Add new accounts via EVE SSO</li>
+            <li>Refresh access tokens when expired</li>
+            <li>Remove accounts you no longer use</li>
+        </ul>
+    </div>
+
+    <table class="eve-table">
+        <colgroup>
+            <col style="width: 20%;">
+            <col style="width: 14%;">
+            <col style="width: 28%;">
+            <col style="width: 28%;">
+            <col style="width: 10%;">
+        </colgroup>
+        <tr>
+            <th>Character</th>
+            <th>Character ID</th>
+            <th>Refresh Token</th>
+            <th>Access Token</th>
+            <th>Actions</th>
+        </tr>
+        {% for eve_user in object_list %}
+        <tr>
+            <td>{{ eve_user.character_name }}</td>
+            <td style="color: var(--accent);">{{ eve_user.character_id }}</td>
+            <td class="token-cell">{{ eve_user.refresh_token }}</td>
+            <td class="token-cell">{{ eve_user.access_token }}</td>
+            <td>
+                <div style="display: flex; gap: 0.35rem;">
+                    <a href="{% url 'eve_accounts:edit_account' eve_user.pk %}" class="eve-icon-btn" title="Edit character">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                        </a>
+                    <a href="{% url 'eve_accounts:delete_account' eve_user.pk %}" class="eve-icon-btn danger" title="Remove">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1z"/>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="color: var(--muted); text-align: center; padding: 1.5rem 0;">
+                <i class="fas fa-satellite" style="margin-right: 0.5rem;"></i> No accounts linked
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+        <a href="{%  url 'eve_accounts:add_account' %}" class="eve-btn">
+            <i class="fas fa-plus"></i> Add Account
+        </a>
+    </div>
+</div>
+
+{% endblock %}

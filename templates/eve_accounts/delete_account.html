@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="max-width: 520px; margin: 4rem auto;">
+
+        <div class="eve-card">
+            <h5>// Delete Eve Character</h5>
+
+            <form method="POST" style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="eve-form-group">
+                    <label for="{{ form.character_id.id_for_label }}">Character ID</label>
+                    {{ form.character_id }}
+                    {% for error in form.character_id.errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="eve-form-group">
+                    <label for="{{ form.character_name.id_for_label }}">Character Name</label>
+                    {{ form.character_name }}
+                    {% for error in form.character_name.errors %}
+                        <div class="eve-alert error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="eve-divider"></div>
+
+                <div class="eve-btn-row">
+                    <button type="submit" class="eve-btn">
+                        <i class="fas fa-trash"></i> Delete Character
+                    </button>
+                    <a href="{% url 'eve_accounts:view_list' %}" class="eve-btn-ghost">
+                        <i class="fas fa-arrow-left"></i> Cancel
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
