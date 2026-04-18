@@ -24,15 +24,13 @@ After authentication, users can:
 - Create multiple tables for organizing items
 - Move and group items based on the user's strategy
 
+### Resource Cost Calculation
+- Display all **required resources** needed to obtain selected items
+- Calculate the **total cost** of purchasing those resources
+
 ---
 
 ## Planned Features (To Be Implemented)
-
-### Resource Cost Calculation
-The application will:
-
-- Display all **required resources** needed to obtain selected items
-- Calculate the **total cost** of purchasing those resources
 
 ### Inventory Check
 After authorization, the application will be able to:
